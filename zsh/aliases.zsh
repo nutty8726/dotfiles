@@ -1,4 +1,5 @@
-alias reload!='. ~/.zshrc'
+alias reload!='clear && . ~/.zshrc'
+alias cls='clear && sh ~/.dotfiles/zsh/motd.zsh'
 
 alias ls='ls -h --color=auto --group-directories-first'
 alias ll='ls -h -l --group-directories-first'
