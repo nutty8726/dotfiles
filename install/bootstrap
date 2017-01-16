@@ -11,12 +11,21 @@ echo -e "  \033[7;34m  nutty8726's dotfiles  \033[0m"
 echo -e "  \033[1;34m╚══════════════════════╝\033[0m"
 echo -e ''
 
-# Find any files ending in *.symlink and symlink them into $HOME.
-# Everything is configured and tweaked from within the dotfiles repo.
-
 symlink_dotfiles() {
 	star "Symlinking dotfiles ending in *.symlink"
 	local overwrite_all=false backup_all=false skip_all=false
+
+	# Symlink the root of this repository to $HOME/.dotfiles if the path
+	# to this repository is not already located there. This is required for
+	# for setting up zsh. See zsh/zshrc.symlink.
+
+	if [ "$DOTFILES_ROOT" != "$HOME/.dotfiles" ]
+	then
+		link_file "$DOTFILES_ROOT" "$HOME/.dotfiles"
+	fi
+
+	# Find any files ending in *.symlink and symlink them into $HOME.
+	# Everything is configured and tweaked from within the dotfiles repo.
 
 	for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
 	do
